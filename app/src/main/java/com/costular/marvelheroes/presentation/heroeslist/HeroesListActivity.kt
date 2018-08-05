@@ -51,7 +51,7 @@ class HeroesListActivity : AppCompatActivity() {
     private fun setUpViewModel() {
         heroesListViewModel = ViewModelProviders.of(this, viewModelFactory).get(HeroesListViewModel::class.java)
         bindEvents()
-        heroesListViewModel.loadUserList()
+        heroesListViewModel.loadMarvelHeroesList()
     }
 
     private fun bindEvents() {
@@ -61,15 +61,15 @@ class HeroesListActivity : AppCompatActivity() {
             }
         })
 
-        heroesListViewModel.marvelHeroesListState.observe(this, Observer { userList ->
-            userList?.let {
+        heroesListViewModel.marvelHeroesListState.observe(this, Observer { marvelHeroesList ->
+            marvelHeroesList?.let {
                 onHeroesListLoaded(it)
             }
         })
     }
 
-    private fun onHeroesListLoaded(userList: List<MarvelHeroEntity>) {
-        adapter.submitList(userList)
+    private fun onHeroesListLoaded(marvelHeroesList: List<MarvelHeroEntity>) {
+        adapter.submitList(marvelHeroesList)
     }
 
     private fun goToHeroDetail(hero: MarvelHeroEntity, image: View) {
@@ -79,9 +79,5 @@ class HeroesListActivity : AppCompatActivity() {
     private fun showLoading(isLoading: Boolean) {
         heroesListLoading.visibility = if(isLoading) View.VISIBLE else View.GONE
     }
-
-//    private fun showHeroesList(heroes: List<MarvelHeroEntity>) {
-//        adapter.swapData(heroes)
-//    }
 
 }
