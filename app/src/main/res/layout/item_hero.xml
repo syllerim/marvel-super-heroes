@@ -8,7 +8,7 @@
     android:focusable="true"
     android:foreground="?attr/selectableItemBackground">
 
-    <com.costular.marvelheroes.presentation.util.SquareImageView
+    <com.costular.marvelheroes.util.SquareImageView
         android:id="@+id/heroImage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
