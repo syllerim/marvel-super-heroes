@@ -1,4 +1,4 @@
-package com.costular.marvelheroes.presentation.util
+package com.costular.marvelheroes.util
 
 import android.content.Context
 import android.util.AttributeSet
