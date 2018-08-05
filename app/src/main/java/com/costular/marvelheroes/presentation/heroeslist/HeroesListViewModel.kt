@@ -11,13 +11,13 @@ import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class HeroesListViewModel@Inject constructor(val marvelHeroesRepository: MarvelHeroesRepository)
+class HeroesListViewModel@Inject constructor(private val marvelHeroesRepository: MarvelHeroesRepository)
     : BaseViewModel()  {
 
     val marvelHeroesListState: MutableLiveData<List<MarvelHeroEntity>> = MutableLiveData()
     val isLoadingState: MutableLiveData<Boolean> = MutableLiveData()
 
-    fun loadUserList() {
+    fun loadMarvelHeroesList() {
         marvelHeroesRepository.getMarvelHeroesList()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
