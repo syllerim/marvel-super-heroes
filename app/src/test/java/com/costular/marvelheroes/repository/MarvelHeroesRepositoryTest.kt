@@ -1,7 +1,7 @@
 package com.costular.marvelheroes.repository
 
 import com.costular.marvelheroes.data.model.MarvelHero
-import com.costular.marvelheroes.data.model.mapper.MarvelHeroMapper
+import com.costular.marvelheroes.data.mapper.MarvelHeroMapper
 import com.costular.marvelheroes.data.repository.MarvelHeroesRepositoryImpl
 import com.costular.marvelheroes.data.repository.datasource.RemoteMarvelHeroesDataSource
 import com.nhaarman.mockito_kotlin.mock
