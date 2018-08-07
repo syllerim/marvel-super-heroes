@@ -3,5 +3,6 @@
 
     <!-- Animations -->
     <string name="image_transition">imageTransition</string>
+    <string name="favorite">Favorites</string>
 
 </resources>

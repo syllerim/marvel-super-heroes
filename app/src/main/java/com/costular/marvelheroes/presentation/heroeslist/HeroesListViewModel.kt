@@ -33,4 +33,23 @@ class HeroesListViewModel@Inject constructor(private val marvelHeroesRepository:
                 )
                 .addTo(compositeDisposable)
     }
+
+    fun loadFavoritesMarvelHeroesList() {
+        marvelHeroesRepository.getFavoritesMarvelHeroesList()?.let {
+                it.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe { isLoadingState.postValue(true) }
+                .doOnTerminate { isLoadingState.postValue(false) }
+                .subscribeBy(
+                        onNext = {
+                            marvelHeroesListState.value = it
+                        },
+                        onError = {
+                            Log.d("HeroesViewModel", it.toString())
+                        }
+                )
+                .addTo(compositeDisposable)
+        }
+
+    }
 }

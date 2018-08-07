@@ -7,6 +7,7 @@ import io.reactivex.Maybe
 @Dao
 abstract class MarvelHeroesDao {
 
+    // CRUD
     @Query("SELECT * FROM marvelHeroes")
     abstract fun getAllMarvelHeroes(): Maybe<List<MarvelHeroEntity>>
 
@@ -21,4 +22,13 @@ abstract class MarvelHeroesDao {
         deleteAllMarvelHeroes()
         insertAll(marvelHeroes)
     }
+
+    // FAVORITES
+
+    @Update(onConflict = OnConflictStrategy.ROLLBACK)
+    abstract fun update(marvelHero: MarvelHeroEntity)
+
+    @Query("SELECT * FROM marvelHeroes WHERE favorite = 1")
+    abstract fun getAllFavoritesMarvelHeroes(): Maybe<List<MarvelHeroEntity>>
+
 }

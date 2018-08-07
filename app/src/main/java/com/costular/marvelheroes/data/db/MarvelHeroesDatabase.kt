@@ -5,7 +5,7 @@ import android.arch.persistence.room.RoomDatabase
 import android.arch.persistence.room.TypeConverters
 import com.costular.marvelheroes.data.model.MarvelHeroEntity
 
-@Database(entities = [MarvelHeroEntity::class], version = 1)
+@Database(entities = [MarvelHeroEntity::class], version = 2)
 @TypeConverters(MarvelHeroesConverters::class)
 abstract class MarvelHeroesDatabase : RoomDatabase() {
 

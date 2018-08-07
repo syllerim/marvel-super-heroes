@@ -24,4 +24,21 @@ class LocalMarvelHeroesDataSource(private val marvelHeroesDatabase: MarvelHeroes
                 .subscribeOn(Schedulers.io())
                 .subscribe()
     }
+
+    override fun setAsFavorite(marvelHero: MarvelHeroEntity) {
+        Observable.fromCallable {
+            marvelHeroesDatabase
+                    .getMarvelHeroDao()
+                    .update(marvelHero)
+        }
+                .subscribeOn(Schedulers.io())
+                .subscribe()
+    }
+
+    override fun getFavoritesMarvelHeroesList(): Flowable<List<MarvelHeroEntity>>? {
+        return marvelHeroesDatabase
+                .getMarvelHeroDao()
+                .getAllFavoritesMarvelHeroes()
+                .toFlowable()
+    }
 }

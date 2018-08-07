@@ -4,7 +4,6 @@ import com.costular.marvelheroes.data.repository.datasource.RemoteMarvelHeroesDa
 import com.costular.marvelheroes.data.model.MarvelHeroEntity
 import com.costular.marvelheroes.data.repository.datasource.LocalMarvelHeroesDataSource
 import io.reactivex.Flowable
-import java.util.concurrent.TimeUnit
 
 /**
  * Created by costular on 17/03/2018.
@@ -23,4 +22,6 @@ class MarvelHeroesRepository(private val localMarvelHeroesDataSource: LocalMarve
                      .doOnNext {
                           localMarvelHeroesDataSource.saveMarvelHeroes(it)
                      }
+     fun getFavoritesMarvelHeroesList(): Flowable<List<MarvelHeroEntity>>? =
+             localMarvelHeroesDataSource.getFavoritesMarvelHeroesList()
 }

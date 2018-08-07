@@ -10,4 +10,8 @@ interface MarvelHeroesDataSource {
 
     fun getMarvelHeroesList(): Flowable<List<MarvelHeroEntity>>
 
+    fun setAsFavorite(marvelHero: MarvelHeroEntity)
+
+    fun getFavoritesMarvelHeroesList(): Flowable<List<MarvelHeroEntity>>?
+
 }
