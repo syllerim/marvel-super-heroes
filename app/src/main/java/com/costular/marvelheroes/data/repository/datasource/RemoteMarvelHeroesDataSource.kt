@@ -17,8 +17,4 @@ class RemoteMarvelHeroesDataSource(private val marvelHeroesService: MarvelHeroes
                     .map { it.superheroes }
                     .map { marvelHeroMapper.transformList(it) }
 
-    override fun setAsFavorite(marvelHero: MarvelHeroEntity) {}
-
-    override fun getFavoritesMarvelHeroesList(): Flowable<List<MarvelHeroEntity>>? { return null }
-
 }

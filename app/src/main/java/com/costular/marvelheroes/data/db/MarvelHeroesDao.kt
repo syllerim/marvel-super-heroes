@@ -25,8 +25,8 @@ abstract class MarvelHeroesDao {
 
     // FAVORITES
 
-    @Update(onConflict = OnConflictStrategy.ROLLBACK)
-    abstract fun update(marvelHero: MarvelHeroEntity)
+    @Update(onConflict = OnConflictStrategy.REPLACE)
+    abstract fun update(marvelHero: MarvelHeroEntity): Int
 
     @Query("SELECT * FROM marvelHeroes WHERE favorite = 1")
     abstract fun getAllFavoritesMarvelHeroes(): Maybe<List<MarvelHeroEntity>>

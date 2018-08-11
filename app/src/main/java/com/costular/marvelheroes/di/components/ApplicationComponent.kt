@@ -3,6 +3,7 @@ package com.costular.marvelheroes.di.components
 import com.costular.marvelheroes.di.modules.ApplicationModule
 import com.costular.marvelheroes.di.modules.DataModule
 import com.costular.marvelheroes.di.modules.NetModule
+import com.costular.marvelheroes.presentation.heroedetail.MarvelHeroeDetailActivity
 import com.costular.marvelheroes.presentation.heroeslist.HeroesListActivity
 import com.costular.marvelheroes.util.util.mvvm.ViewModelModule
 import dagger.Component
@@ -21,5 +22,7 @@ import javax.inject.Singleton
 interface ApplicationComponent {
 
     fun inject(heroesListActivity: HeroesListActivity)
+
+    fun inject(heroeDetailActivity: MarvelHeroeDetailActivity)
 
 }
