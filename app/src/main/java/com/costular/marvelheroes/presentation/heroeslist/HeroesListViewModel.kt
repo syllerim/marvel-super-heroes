@@ -33,14 +33,13 @@ class HeroesListViewModel@Inject constructor(private val marvelHeroesRepository:
                             Log.d("HeroesViewModel", it.toString())
                         },
                         onComplete = {
+                            if (settingsManager.firstLoad) {
+                                loadMarvelHeroesList()
+                            }
                             settingsManager.firstLoad = false
                         }
                 )
                 .addTo(compositeDisposable)
-
-        if (settingsManager.firstLoad) {
-            loadMarvelHeroesList()
-        }
     }
 
     fun loadFavoritesMarvelHeroesList() {

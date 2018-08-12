@@ -10,18 +10,22 @@ import io.reactivex.Flowable
  * Created by costular on 17/03/2018.
  */
 class MarvelHeroesRepository(private val localMarvelHeroesDataSource: LocalMarvelHeroesDataSource,
-                             private val remoteMarvelHeroesDataSource: RemoteMarvelHeroesDataSource) {
+                             private val remoteMarvelHeroesDataSource: RemoteMarvelHeroesDataSource,
+                             private val settingsManager: SettingsManager) {
 
      fun getMarvelHeroesList(): Flowable<List<MarvelHeroEntity>> =
-            getMarvelHeroesListFromRemote().concatWith(getMarvelHeroesListFromDb())
+             if (settingsManager.firstLoad)
+                getMarvelHeroesListFromRemote()
+             else
+                getMarvelHeroesListFromLocal()
 
-     private fun getMarvelHeroesListFromDb(): Flowable<List<MarvelHeroEntity>> =
+     private fun getMarvelHeroesListFromLocal(): Flowable<List<MarvelHeroEntity>> =
              localMarvelHeroesDataSource.getMarvelHeroesList()
 
      private fun getMarvelHeroesListFromRemote(): Flowable<List<MarvelHeroEntity>> =
              remoteMarvelHeroesDataSource.getMarvelHeroesList()
                      .doOnNext {
-                          localMarvelHeroesDataSource.saveMarvelHeroes(it)
+                             localMarvelHeroesDataSource.saveMarvelHeroes(it)
                      }
 
      fun getFavoritesMarvelHeroesList(): Flowable<List<MarvelHeroEntity>>? =

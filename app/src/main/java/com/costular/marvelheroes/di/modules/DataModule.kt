@@ -54,7 +54,8 @@ class DataModule {
     @Provides
     @Singleton
     fun provideMarvelHeroesRepository(localMarvelHeroesDataSource: LocalMarvelHeroesDataSource,
-                                      remoteMarvelHeroesDataSource: RemoteMarvelHeroesDataSource): MarvelHeroesRepository =
-            MarvelHeroesRepository(localMarvelHeroesDataSource, remoteMarvelHeroesDataSource)
+                                      remoteMarvelHeroesDataSource: RemoteMarvelHeroesDataSource,
+                                      settingsManager: SettingsManager): MarvelHeroesRepository =
+            MarvelHeroesRepository(localMarvelHeroesDataSource, remoteMarvelHeroesDataSource, settingsManager)
 
 }
