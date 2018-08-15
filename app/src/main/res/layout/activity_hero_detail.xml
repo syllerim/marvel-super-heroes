@@ -59,7 +59,7 @@
             xmlns:tools="http://schemas.android.com/tools">
 
             <ImageButton
-                android:id="@+id/favorite_button"
+                android:id="@+id/heroFavoriteButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -70,7 +70,7 @@
                 android:layout_gravity="center"/>
 
             <RatingBar
-                android:id="@+id/rating_bar"
+                android:id="@+id/heroRatingBar"
                 android:numStars="5"
                 android:stepSize="1.0"
                 android:layout_width="300dp"

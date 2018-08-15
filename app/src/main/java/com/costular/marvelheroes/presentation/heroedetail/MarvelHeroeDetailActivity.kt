@@ -17,6 +17,7 @@ import com.costular.marvelheroes.data.model.MarvelHeroEntity
 import com.costular.marvelheroes.presentation.MainApp
 import com.costular.marvelheroes.presentation.heroeslist.MarvelHeroDetailViewModel
 import kotlinx.android.synthetic.main.activity_hero_detail.*
+import kotlinx.android.synthetic.main.activity_hero_detail.view.*
 import javax.inject.Inject
 
 /**
@@ -53,8 +54,13 @@ class MarvelHeroeDetailActivity : AppCompatActivity() {
         hero?.let {
             fillHeroData(it)
 
-            favorite_button.setOnClickListener {
+            heroFavoriteButton.setOnClickListener {
                 hero.favorite = !hero.favorite
+                marvelHeroDetailViewModel.saveFavorite(hero)
+            }
+
+            heroRatingBar.setOnClickListener{
+                hero.rating = it.heroRatingBar.rating.toInt()
                 marvelHeroDetailViewModel.saveFavorite(hero)
             }
         }
@@ -98,7 +104,8 @@ class MarvelHeroeDetailActivity : AppCompatActivity() {
         heroDetailHeight.text = hero.height
         heroDetailPower.text = hero.power
         heroDetailAbilities.text = hero.abilities
-        favorite_button.setImageResource(if (hero.favorite) R.drawable.ic_favorite_filled else R.drawable.ic_favorite_empty)
+        heroFavoriteButton.setImageResource(if (hero.favorite) R.drawable.ic_favorite_filled else R.drawable.ic_favorite_empty)
+        heroRatingBar.rating = hero.rating.toFloat()
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
