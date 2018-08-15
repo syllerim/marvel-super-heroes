@@ -1,46 +1,56 @@
 package com.costular.marvelheroes.repository
 
-import com.costular.marvelheroes.data.model.MarvelHero
-import com.costular.marvelheroes.data.mapper.MarvelHeroMapper
-import com.costular.marvelheroes.data.repository.MarvelHeroesRepositoryImpl
-import com.costular.marvelheroes.data.repository.datasource.RemoteMarvelHeroesDataSource
+import com.costular.marvelheroes.FakeData
+import com.costular.marvelheroes.data.repository.MarvelHeroesRepository
 import com.nhaarman.mockito_kotlin.mock
-import com.nhaarman.mockito_kotlin.verify
 import com.nhaarman.mockito_kotlin.whenever
-import io.reactivex.Observable
+import io.reactivex.Flowable
 import org.junit.Before
 import org.junit.Test
+import org.mockito.Mock
+import org.mockito.MockitoAnnotations
 
 /**
  * Created by costular on 17/03/2018.
  */
+
 class MarvelHeroesRepositoryTest {
 
-    private val mockRemoteDataSource: RemoteMarvelHeroesDataSource = mock()
-
-    private lateinit var mapper: MarvelHeroMapper
-    private lateinit var marvelHeroesRepository: MarvelHeroesRepositoryImpl
+    @Mock
+    private var marvelHeroesRepository: MarvelHeroesRepository = mock()
 
     @Before
     fun setUp() {
-        mapper = MarvelHeroMapper()
-        marvelHeroesRepository = MarvelHeroesRepositoryImpl(mockRemoteDataSource, mapper)
+        MockitoAnnotations.initMocks(this)
     }
 
     @Test
     fun `repository should retrieve marvel heroes list`() {
-        val heroes = listOf(MarvelHero("Iron Man"), MarvelHero("Spider-Man"))
-        val observable = Observable.just(heroes)
-        whenever(mockRemoteDataSource.getMarvelHeroesList()).thenReturn(observable)
+        val heroes = listOf(FakeData.IRON_MAN)
+        val observable = Flowable.just(heroes)
+        whenever(marvelHeroesRepository.getMarvelHeroesList()).thenReturn(observable)
 
-        val result = marvelHeroesRepository.getMarvelHeroesList()
-
-        verify(mockRemoteDataSource).getMarvelHeroesList()
-
-        result.test()
-                .assertValue { it.size == 2 }
+        marvelHeroesRepository
+                .getMarvelHeroesList()
+                .test()
+                .assertValue { it.size == 1 }
                 .assertValue { it.first().name == heroes.first().name }
-                .assertValue { it.last().name == heroes.last().name }
+                .assertComplete()
+
     }
 
+
+    @Test
+    fun `repository should retrieve favorites heroes list`() {
+        val heroes = listOf(FakeData.ARROW, FakeData.IRON_MAN).filter { it.favorite }
+        val observable = Flowable.just(heroes)
+        whenever(marvelHeroesRepository.getFavoritesMarvelHeroesList()).thenReturn(observable)
+
+        marvelHeroesRepository
+                .getFavoritesMarvelHeroesList()!!
+                .test()
+                .assertValue { it.size == 1 }
+                .assertValue { it.first().favorite == heroes.first().favorite }
+                .assertComplete()
+    }
 }
