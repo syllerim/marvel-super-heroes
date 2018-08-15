@@ -59,8 +59,8 @@ class MarvelHeroeDetailActivity : AppCompatActivity() {
                 marvelHeroDetailViewModel.saveFavorite(hero)
             }
 
-            heroRatingBar.setOnClickListener{
-                hero.rating = it.heroRatingBar.rating.toInt()
+            heroRatingBar.setOnRatingBarChangeListener { _, rating, _ ->
+                hero.rating = rating.toInt()
                 marvelHeroDetailViewModel.saveFavorite(hero)
             }
         }
@@ -76,7 +76,7 @@ class MarvelHeroeDetailActivity : AppCompatActivity() {
     }
 
     private fun bindData() {
-        marvelHeroDetailViewModel.marvelHeroeState.observe(this, Observer { marvelHeroe ->
+        marvelHeroDetailViewModel.marvelHeroState.observe(this, Observer { marvelHeroe ->
             marvelHeroe?.let {
                 fillHeroData(it)
             }

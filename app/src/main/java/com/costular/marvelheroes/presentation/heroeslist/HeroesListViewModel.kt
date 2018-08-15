@@ -34,9 +34,9 @@ class HeroesListViewModel@Inject constructor(private val marvelHeroesRepository:
                         },
                         onComplete = {
                             if (settingsManager.firstLoad) {
+                                settingsManager.firstLoad = false
                                 loadMarvelHeroesList()
                             }
-                            settingsManager.firstLoad = false
                         }
                 )
                 .addTo(compositeDisposable)

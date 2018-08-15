@@ -56,6 +56,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_weight="1"
+            android:layout_gravity="center"
             xmlns:tools="http://schemas.android.com/tools">
 
             <ImageButton
@@ -71,10 +72,13 @@
 
             <RatingBar
                 android:id="@+id/heroRatingBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:numStars="5"
-                android:stepSize="1.0"
-                android:layout_width="300dp"
-                android:layout_height="wrap_content" />
+                android:stepSize="1"
+                android:isIndicator="false"
+                style="?attr/ratingBarStyleIndicator" />
+
         </LinearLayout>
     </LinearLayout>
 

@@ -14,7 +14,7 @@ import javax.inject.Inject
 class MarvelHeroDetailViewModel@Inject constructor(private val marvelHeroesRepository: MarvelHeroesRepository)
     : BaseViewModel() {
 
-    val marvelHeroeState: MutableLiveData<MarvelHeroEntity> = MutableLiveData()
+    val marvelHeroState: MutableLiveData<MarvelHeroEntity> = MutableLiveData()
 
     fun saveFavorite(marvelHeroEntity: MarvelHeroEntity) {
         marvelHeroesRepository.setFavorite(marvelHeroEntity)?.let {
@@ -22,7 +22,7 @@ class MarvelHeroDetailViewModel@Inject constructor(private val marvelHeroesRepos
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribeBy(
                             onNext = {
-                                marvelHeroeState.value = it
+                                marvelHeroState.value = it
                             },
                             onError = {
                                 Log.d("HeroesViewModel", it.toString())
