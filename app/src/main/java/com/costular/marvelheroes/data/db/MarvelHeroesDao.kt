@@ -18,13 +18,12 @@ abstract class MarvelHeroesDao {
     abstract fun deleteAllMarvelHeroes()
 
     @Transaction
-    open fun removeAndInsertMarvelHeroes(marvelHeroes: List<MarvelHeroEntity>) {
+    open fun removeInsertMarvelHeroes(marvelHeroes: List<MarvelHeroEntity>) {
         deleteAllMarvelHeroes()
         insertAll(marvelHeroes)
     }
 
     // FAVORITES
-
     @Update(onConflict = OnConflictStrategy.REPLACE)
     abstract fun update(marvelHero: MarvelHeroEntity): Int
 

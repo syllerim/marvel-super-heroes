@@ -19,7 +19,7 @@ class LocalMarvelHeroesDataSource(private val marvelHeroesDatabase: MarvelHeroes
         Observable.fromCallable {
             marvelHeroesDatabase
                     .getMarvelHeroDao()
-                    .removeAndInsertMarvelHeroes(marvelHeroes)
+                    .removeInsertMarvelHeroes(marvelHeroes)
         }
                 .subscribeOn(Schedulers.io())
                 .subscribe()

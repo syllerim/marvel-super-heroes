@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.GridLayoutManager
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -52,6 +53,12 @@ class HeroesListActivity : AppCompatActivity() {
         menuInflater.inflate(R.menu.main_menu, menu)
 
         return true
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        heroesListViewModel.loadMarvelHeroesList()
     }
 
     override fun onOptionsItemSelected(item: MenuItem?) : Boolean = when (item?.itemId) {
@@ -116,5 +123,4 @@ class HeroesListActivity : AppCompatActivity() {
     private fun showLoading(isLoading: Boolean) {
         heroesListLoading.visibility = if(isLoading) View.VISIBLE else View.GONE
     }
-
 }

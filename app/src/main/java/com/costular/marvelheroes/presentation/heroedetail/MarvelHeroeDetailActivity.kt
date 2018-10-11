@@ -50,18 +50,18 @@ class MarvelHeroeDetailActivity : AppCompatActivity() {
 
         setupViewModel()
 
-        val hero: MarvelHeroEntity? = intent?.extras?.getParcelable(PARAM_HEROE)
-        hero?.let {
+        val heroe: MarvelHeroEntity? = intent?.extras?.getParcelable(PARAM_HEROE)
+        heroe?.let {
             fillHeroData(it)
 
             heroFavoriteButton.setOnClickListener {
-                hero.favorite = !hero.favorite
-                marvelHeroDetailViewModel.saveFavorite(hero)
+                heroe.favorite = !heroe.favorite
+                marvelHeroDetailViewModel.saveFavorite(heroe)
             }
 
             heroRatingBar.setOnRatingBarChangeListener { _, rating, _ ->
-                hero.rating = rating.toInt()
-                marvelHeroDetailViewModel.saveFavorite(hero)
+                heroe.rating = rating.toInt()
+                marvelHeroDetailViewModel.saveFavorite(heroe)
             }
         }
     }

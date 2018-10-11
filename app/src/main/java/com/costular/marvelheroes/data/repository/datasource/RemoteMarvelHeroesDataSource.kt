@@ -14,7 +14,10 @@ class RemoteMarvelHeroesDataSource(private val marvelHeroesService: MarvelHeroes
 
     override fun getMarvelHeroesList(): Flowable<List<MarvelHeroEntity>> =
             marvelHeroesService.getMarvelHeroesList()
-                    .map { it.superheroes }
+                    .map {
+                        print(it)
+                        it.superheroes
+                    }
                     .map { marvelHeroMapper.transformList(it) }
 
 }

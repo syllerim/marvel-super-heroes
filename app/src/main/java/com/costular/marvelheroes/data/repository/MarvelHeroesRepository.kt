@@ -15,9 +15,10 @@ class MarvelHeroesRepository(private val localMarvelHeroesDataSource: LocalMarve
 
      fun getMarvelHeroesList(): Flowable<List<MarvelHeroEntity>> =
              if (settingsManager.firstLoad)
-                getMarvelHeroesListFromRemote()
+                 getMarvelHeroesListFromRemote()
              else
-                getMarvelHeroesListFromLocal()
+                 getMarvelHeroesListFromLocal()
+
 
      private fun getMarvelHeroesListFromLocal(): Flowable<List<MarvelHeroEntity>> =
              localMarvelHeroesDataSource.getMarvelHeroesList()
@@ -25,7 +26,7 @@ class MarvelHeroesRepository(private val localMarvelHeroesDataSource: LocalMarve
      private fun getMarvelHeroesListFromRemote(): Flowable<List<MarvelHeroEntity>> =
              remoteMarvelHeroesDataSource.getMarvelHeroesList()
                      .doOnNext {
-                             localMarvelHeroesDataSource.saveMarvelHeroes(it)
+                         localMarvelHeroesDataSource.saveMarvelHeroes(it)
                      }
 
      fun getFavoritesMarvelHeroesList(): Flowable<List<MarvelHeroEntity>>? =
@@ -35,6 +36,9 @@ class MarvelHeroesRepository(private val localMarvelHeroesDataSource: LocalMarve
              Flowable.just(marvelHeroEntity)
                      .doOnNext {
                          localMarvelHeroesDataSource.setAsFavorite(it)
+                     }
+                     .doFinally {
+                         localMarvelHeroesDataSource.getFavoritesMarvelHeroesList()
                      }
 
 }

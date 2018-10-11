@@ -24,7 +24,9 @@ class HeroesListViewModel@Inject constructor(private val marvelHeroesRepository:
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe { isLoadingState.postValue(true) }
-                .doOnTerminate { isLoadingState.postValue(false) }
+                .doOnTerminate {
+                    isLoadingState.postValue(false)
+                }
                 .subscribeBy(
                         onNext = {
                             marvelHeroesListState.value = it
@@ -35,7 +37,6 @@ class HeroesListViewModel@Inject constructor(private val marvelHeroesRepository:
                         onComplete = {
                             if (settingsManager.firstLoad) {
                                 settingsManager.firstLoad = false
-                                loadMarvelHeroesList()
                             }
                         }
                 )
